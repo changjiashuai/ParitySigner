@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2019, The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/keys"
+    app:startDestination="@+id/seedScreen">
+
+    <fragment
+        android:id="@+id/seedScreen"
+        android:name="com.changjiashuai.paritysigner.ui.keys.SeedFragment"
+        android:label="Seeds"
+        tools:layout="@layout/fragment_seed">
+        <action
+            android:id="@+id/action_seed_to_details"
+            app:destination="@id/seedDetails" />
+        <action
+            android:id="@+id/action_seed_to_new"
+            app:destination="@id/newSeed"
+            app:popUpTo="@id/seedScreen" />
+        <action
+            android:id="@+id/action_seed_to_recover"
+            app:destination="@id/recoverSeed"
+            app:popUpTo="@id/seedScreen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/seedDetails"
+        android:name="com.changjiashuai.paritysigner.ui.keys.SeedDetailsFragment"
+        android:label="Seed Details"
+        tools:layout="@layout/fragment_seed_details">
+
+        <action
+            android:id="@+id/action_seedDetails_to_keyDetails"
+            app:destination="@id/keyDetails" />
+
+        <argument
+            android:name="seedName"
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newSeed"
+        android:name="com.changjiashuai.paritysigner.ui.keys.NewSeedFragment"
+        android:label="New Seed"
+        tools:layout="@layout/fragment_new_seed">
+
+        <action
+            android:id="@+id/action_newseed_to_details"
+            app:destination="@id/seedDetails" />
+
+        <argument
+            android:name="seedName"
+            app:argType="string" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/recoverSeed"
+        android:name="com.changjiashuai.paritysigner.ui.keys.RecoverSeedFragment"
+        android:label="Recover Seed"
+        tools:layout="@layout/fragment_recover_seed">
+
+        <action
+            android:id="@+id/action_recoverseed_to_phrase"
+            app:destination="@id/recoverSeedPhrase"
+            app:popUpTo="@id/recoverSeed" />
+
+        <argument
+            android:name="seedName"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recoverSeedPhrase"
+        android:name="com.changjiashuai.paritysigner.ui.keys.RecoverSeedPhraseFragment"
+        android:label="Recover Seed Phrase"
+        tools:layout="@layout/fragment_recover_seed_phrase">
+
+        <action
+            android:id="@+id/action_recoverseed_to_details"
+            app:destination="@id/seedDetails" />
+
+        <argument
+            android:name="seedName"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/keyDetails"
+        android:name="com.changjiashuai.paritysigner.ui.keys.KeyDetailsFragment"
+        tools:layout="@layout/fragment_key_details">
+        <argument
+            android:name="type"
+            app:argType="integer" />
+    </fragment>
+
+</navigation>

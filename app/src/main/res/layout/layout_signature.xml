@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingHorizontal="16dp"
+            android:text="Signature"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_close_24" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="16dp"
+        android:text="Scan this into your application" />
+
+    <ImageView
+        android:id="@+id/iv_qr_code"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            tools:src="@drawable/ic_home_black_24dp" />
+
+        <TextView
+            android:id="@+id/tv_seed_name_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/iv_logo"
+            tools:text="9230test//polkadot" />
+
+        <TextView
+            android:id="@+id/tv_public_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_seed_name_path"
+            android:layout_toEndOf="@id/iv_logo"
+            tools:text="0852...22938f" />
+    </RelativeLayout>
+
+    <!--    SIGN_NETWORK_SPECS -->
+    <RelativeLayout
+        android:id="@+id/rl_specs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:id="@+id/tv_specs_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Specs" />
+
+        <ImageView
+            android:id="@+id/iv_specs_logo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/tv_specs_title"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            tools:src="@drawable/ic_polkadot_new_dot_logo" />
+
+        <TextView
+            android:id="@+id/tv_specs_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_specs_title"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/iv_specs_logo"
+            tools:text="Polkadot" />
+    </RelativeLayout>
+
+    <!--    SIGN_METADATA -->
+    <TextView
+        android:id="@+id/tv_metadata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:padding="16dp"
+        tools:text="Metadata for polkadot with version 9190" />
+
+    <!--    SIGN_TYPES  -->
+    <RelativeLayout
+        android:id="@+id/rl_types"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:id="@+id/tv_types_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Types" />
+
+        <ImageView
+            android:id="@+id/iv_types_logo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/tv_types_title"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            tools:src="@drawable/ic_polkadot_new_dot_logo" />
+
+        <TextView
+            android:id="@+id/tv_types_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_types_title"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/iv_types_logo"
+            tools:text="d0d0d0d0d0d0d0d0d0d" />
+    </RelativeLayout>
+
+</LinearLayout>

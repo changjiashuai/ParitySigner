@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.keys.NewSeedActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="New Seed Step 2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Backup Seed Phrase"
+            android:textAppearance="@style/TextAppearance.Material3.DisplaySmall" />
+
+        <TextView
+            android:id="@+id/tv_seed_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:text="seed name" />
+
+        <TextView
+            android:id="@+id/tv_seed_phrase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="limit ability core paper gallery moon waste pigeon awesome hospital boil betray section can connect orbit seat seed purity armed salon hip salute grape" />
+
+        <CheckBox
+            android:id="@+id/cb_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I have written down my seed phrase" />
+
+        <CheckBox
+            android:id="@+id/cb_create_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Create seed keys" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:enabled="false"
+            android:text="Next" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Parsing MultiPart Data" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/sb_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_marginTop="10dp"
+        android:indeterminate="false"
+        android:max="100"
+        tools:progress="30" />
+
+    <TextView
+        android:id="@+id/tv_frames"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sb_progress"
+        android:layout_marginTop="10dp"
+        tools:text="From 40 / 309 captured frames" />
+
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_frames"
+        android:layout_marginTop="10dp"
+        android:text="Please hold still" />
+
+    <Button
+        android:id="@+id/btn_start_over"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tips"
+        android:layout_marginTop="10dp"
+        android:text="Start Over" />
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Please hold still" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/preview_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.changjiashuai.paritysigner.GraphicOverlay
+            android:id="@+id/graphic_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <include
+        android:id="@+id/rl_qr_parse"
+        layout="@layout/layout_qr_processing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <!--    <include-->
+    <!--        android:visibility="gone"-->
+    <!--        android:id="@+id/settings_button"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintRight_toRightOf="@id/preview_view"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/preview_view" />-->
+
+    <!--    <LinearLayout-->
+    <!--        android:visibility="gone"-->
+    <!--        android:id="@id/control"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        android:background="#000"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <ToggleButton-->
+    <!--            android:id="@+id/facing_switch"-->
+    <!--            android:layout_width="48dp"-->
+    <!--            android:layout_height="48dp"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:checked="false"-->
+    <!--            android:textOff=""-->
+    <!--            android:textOn=""/>-->
+
+    <!--        <Spinner-->
+    <!--            android:id="@+id/spinner"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center"/>-->
+
+    <!--    </LinearLayout>-->
+
+</LinearLayout>
