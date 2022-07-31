@@ -32,10 +32,11 @@
             tools:text="test name" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/iv_logo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_home_black_24dp" />
+            tools:src="@drawable/ic_home_black_24dp" />
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

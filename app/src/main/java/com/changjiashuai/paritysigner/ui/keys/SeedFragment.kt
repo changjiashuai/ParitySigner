@@ -13,6 +13,7 @@ import com.changjiashuai.paritysigner.databinding.FragmentSeedBinding
 import com.changjiashuai.paritysigner.ext.showSheetStyle1
 import com.changjiashuai.paritysigner.ext.showSheetStyle2
 import com.changjiashuai.paritysigner.models.AlertState
+import com.changjiashuai.paritysigner.utils.AirPlaneUtils
 import com.changjiashuai.paritysigner.viewmodel.SeedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.parity.signer.uniffi.*
@@ -84,9 +85,7 @@ class SeedFragment : BaseFragment() {
             title = "Add Seed(Select seed addition method)",
             actionText = "New seed",
             actionClick = {
-                //
-                Log.i(TAG, "alertState=${seedViewModel.alertState.value}")
-                if (seedViewModel.alertState.value == AlertState.None) {
+                if (context?.let { AirPlaneUtils.getAlertState(it) } == AlertState.None) {
                     findNavController().navigate(R.id.action_seed_to_new)
                 } else {
                     seedViewModel.pushButton(Action.SHIELD)
@@ -94,7 +93,7 @@ class SeedFragment : BaseFragment() {
             },
             action2Text = "Recover seed",
             action2Click = {
-                if (seedViewModel.alertState.value == AlertState.None) {
+                if (context?.let { AirPlaneUtils.getAlertState(it) } == AlertState.None) {
                     findNavController().navigate(R.id.action_seed_to_recover)
                 } else {
                     seedViewModel.pushButton(Action.SHIELD)

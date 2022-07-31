@@ -27,9 +27,6 @@ class LogFragment : BaseFragment() {
 
     private val logViewModel by viewModels<LogViewModel>()
     private var _binding: FragmentLogBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private val adapter = LogEventAdapter()
 
@@ -76,7 +73,6 @@ class LogFragment : BaseFragment() {
             findNavController().navigate(R.id.action_log_to_details, bundle)
         }
     }
-
 
     private fun showLogBottomSheet(mLogRight: MLogRight) {
         context?.let {

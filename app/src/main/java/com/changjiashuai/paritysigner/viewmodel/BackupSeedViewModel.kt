@@ -1,8 +1,10 @@
 package com.changjiashuai.paritysigner.viewmodel
 
+import android.content.Context
 import android.util.Log
 import com.changjiashuai.paritysigner.SeedBoxStatus
 import com.changjiashuai.paritysigner.models.AlertState
+import com.changjiashuai.paritysigner.utils.AirPlaneUtils
 import com.changjiashuai.paritysigner.utils.DbUtils
 import com.changjiashuai.paritysigner.utils.PrefsUtils
 import io.parity.signer.uniffi.historySeedNameWasShown
@@ -16,11 +18,12 @@ class BackupSeedViewModel : AbsViewModel() {
 
     //Need authentication
     fun getSeedForBackup(
+        context: Context,
         seedName: String,
         setSeedPhrase: (String) -> Unit,
         setSeedBoxStatus: (SeedBoxStatus) -> Unit
     ) {
-        if (alertState.value == AlertState.None) {
+        if (AirPlaneUtils.getAlertState(context) == AlertState.None) {
 //            authentication.authenticate(activity) {
             val seedPhrase = getSeed(seedName, backup = true)
             if (seedPhrase.isBlank()) {

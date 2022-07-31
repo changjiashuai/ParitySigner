@@ -34,7 +34,7 @@ class KeyDetailsFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentKeyDetailsBinding.inflate(inflater, container, false)
         setupExtras()
         setupView()

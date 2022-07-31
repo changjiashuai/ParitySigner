@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.changjiashuai.paritysigner.BaseFragment
 import com.changjiashuai.paritysigner.adapter.LogDetailsAdapter
+import com.changjiashuai.paritysigner.adapter.LogEventAdapter
 import com.changjiashuai.paritysigner.databinding.FragmentLogDetailsBinding
+import com.changjiashuai.paritysigner.models.EventModel
 import com.changjiashuai.paritysigner.viewmodel.LogDetailsViewModel
 import io.parity.signer.uniffi.Action
 import io.parity.signer.uniffi.ScreenData
@@ -22,11 +24,10 @@ class LogDetailsFragment : BaseFragment() {
 
     private val logDetailsViewModel by viewModels<LogDetailsViewModel>()
     private var _binding: FragmentLogDetailsBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-    private val adapter = LogDetailsAdapter()
+
+    //    private val adapter = LogDetailsAdapter()
+    private val adapter = LogEventAdapter()
     private var order: String = ""
 
     override fun onCreateView(
@@ -61,7 +62,19 @@ class LogDetailsFragment : BaseFragment() {
             is ScreenData.LogDetails -> {
                 val logDetails = screenData.f
                 binding.tvTimestamp.text = logDetails.timestamp
-                adapter.submitList(logDetails.events)
+                var events = emptyList<EventModel>()
+                logDetails.events.forEachIndexed { index, mEventMaybeDecoded ->
+                    Log.i(TAG, "mEventMaybeDecoded=$mEventMaybeDecoded")
+                    events = events.plus(
+                        EventModel(
+                            "$index",
+                            logDetails.timestamp,
+                            mEventMaybeDecoded.event
+                        )
+                    )
+                }
+                adapter.submitList(events)
+//                adapter.submitList(logDetails.events)
             }
             else -> {
 

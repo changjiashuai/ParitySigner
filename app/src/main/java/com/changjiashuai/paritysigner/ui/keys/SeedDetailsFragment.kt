@@ -21,6 +21,7 @@ import com.changjiashuai.paritysigner.adapter.NetworkSelectorAdapter
 import com.changjiashuai.paritysigner.databinding.FragmentSeedDetailsBinding
 import com.changjiashuai.paritysigner.ext.*
 import com.changjiashuai.paritysigner.models.*
+import com.changjiashuai.paritysigner.utils.AirPlaneUtils
 import com.changjiashuai.paritysigner.viewmodel.SeedDetailsViewModel
 import io.parity.signer.uniffi.*
 
@@ -58,12 +59,6 @@ class SeedDetailsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.i(TAG, "onResume")
-        seedDetailsViewModel.pushButton(Action.SELECT_SEED, seedName)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_seed, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -83,7 +78,7 @@ class SeedDetailsFragment : BaseFragment() {
             title = "Seed Menu",
             actionText = "Backup",
             actionClick = {
-                if (seedDetailsViewModel.alertState.value == AlertState.None) {
+                if (context?.let { AirPlaneUtils.getAlertState(it) } == AlertState.None) {
                     seedDetailsViewModel.pushButton(Action.BACKUP_SEED)
                 } else {
                     seedDetailsViewModel.pushButton(Action.SHIELD)
@@ -91,7 +86,7 @@ class SeedDetailsFragment : BaseFragment() {
             },
             action2Text = "Derive new key",
             action2Click = {
-                if (seedDetailsViewModel.alertState.value == AlertState.None) {
+                if (context?.let { AirPlaneUtils.getAlertState(it) } == AlertState.None) {
                     goToNewDeriveKey()
                 } else {
                     seedDetailsViewModel.pushButton(Action.SHIELD)
@@ -139,6 +134,7 @@ class SeedDetailsFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
+        seedDetailsViewModel.pushButton(Action.SELECT_SEED, seedName)
         seedDetailsViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }
@@ -209,7 +205,7 @@ class SeedDetailsFragment : BaseFragment() {
         binding.tvDerivedKeys.text = "Derived Keys"
         binding.ivAddKey.setOnClickListener {
             //add derived key
-            if (seedDetailsViewModel.alertState.value == AlertState.None) {
+            if (context?.let { AirPlaneUtils.getAlertState(it) } == AlertState.None) {
                 goToNewDeriveKey()
             } else {
                 seedDetailsViewModel.pushButton(Action.SHIELD)
@@ -219,9 +215,7 @@ class SeedDetailsFragment : BaseFragment() {
     }
 
     private fun goToNewDeriveKey() {
-        context?.let {
-            NewDeriveKeyActivity.startActivity(it, true)
-        }
+        findNavController().navigate(R.id.action_seedDetails_to_newDeriveKey)
     }
 
     private fun showNetworkSelector(mNetworkMenu: MNetworkMenu) {
@@ -273,7 +267,7 @@ class SeedDetailsFragment : BaseFragment() {
         //fixme
         activity?.let { activity ->
             authentication.authenticate(activity) {
-                seedDetailsViewModel.getSeedForBackup(seedName, { seedPhrase ->
+                seedDetailsViewModel.getSeedForBackup(activity, seedName, { seedPhrase ->
                     //TODO： 倒计时1分钟 隐藏可以备份的助记词
                     tvSeedPhraseValue.text = seedPhrase
                 }, { seedBoxStatus ->
@@ -283,7 +277,8 @@ class SeedDetailsFragment : BaseFragment() {
                             val second = if (it == 0L) 0 else it / 1000
                             tvSeedPhrase.text = "Seed Phrase (倒计时 ${second}s 助记词消失不可见)"
                         }, onFinish = {
-                            tvSeedPhraseValue.text = "Time out. Come back again to see the seed phrase!"
+                            tvSeedPhraseValue.text =
+                                "Time out. Come back again to see the seed phrase!"
                         })
                     }
                 })

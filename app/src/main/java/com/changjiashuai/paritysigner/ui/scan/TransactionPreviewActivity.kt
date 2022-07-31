@@ -71,7 +71,7 @@ class TransactionPreviewActivity : BaseActivity() {
         val authorInfo = mTransaction.authorInfo
         processAddress(authorInfo)
 
-        //NetworkCard
+        //NetworkCard TODO: add network -> approval , decline
         val networkInfo = mTransaction.networkInfo
         processNetworkInfo(networkInfo)
 

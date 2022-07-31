@@ -20,8 +20,8 @@ import java.io.File
 open class AbsViewModel : ViewModel() {
 
     // Alert
-    private val _alertState: MutableLiveData<AlertState> = MutableLiveData(AlertState.None)
-    val alertState: LiveData<AlertState> = _alertState
+//    private val _alertState: MutableLiveData<AlertState> = MutableLiveData(AlertState.None)
+//    val alertState: LiveData<AlertState> = _alertState
 
     private val _actionResult = MutableLiveData(
         ActionResult(

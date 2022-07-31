@@ -114,7 +114,7 @@ class BackupSeedFragment : BaseFragment() {
         //fixme
         activity?.let { activity ->
             authentication.authenticate(activity) {
-                backupSeedViewModel.getSeedForBackup(seedName, { seedPhrase ->
+                backupSeedViewModel.getSeedForBackup(activity, seedName, { seedPhrase ->
                     //TODO： 倒计时1分钟 隐藏可以备份的助记词
                     tvSeedPhraseValue.text = seedPhrase
                 }, { seedBoxStatus ->

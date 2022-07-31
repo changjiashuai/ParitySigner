@@ -48,9 +48,22 @@
             android:id="@+id/action_seedDetails_to_keyDetails"
             app:destination="@id/keyDetails" />
 
+        <action
+            android:id="@+id/action_seedDetails_to_newDeriveKey"
+            app:destination="@id/newDeriveKey"
+            app:popUpTo="@id/seedDetails" />
+
         <argument
             android:name="seedName"
             app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newDeriveKey"
+        android:name="com.changjiashuai.paritysigner.ui.keys.NewDeriveKeyFragment"
+        android:label="Derive Key"
+        tools:layout="@layout/fragment_new_derive_key">
 
     </fragment>
 

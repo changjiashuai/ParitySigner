@@ -1,60 +1,64 @@
 package com.changjiashuai.paritysigner.ui.keys
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
+import android.view.*
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.changjiashuai.paritysigner.Authentication
-import com.changjiashuai.paritysigner.BaseActivity
+import com.changjiashuai.paritysigner.BaseFragment
 import com.changjiashuai.paritysigner.R
-import com.changjiashuai.paritysigner.databinding.ActivityNewDeriveKeyBinding
+import com.changjiashuai.paritysigner.databinding.FragmentNewDeriveKeyBinding
 import com.changjiashuai.paritysigner.viewmodel.NewDeriveKeyViewModel
-import io.parity.signer.uniffi.*
+import io.parity.signer.uniffi.Action
+import io.parity.signer.uniffi.DerivationDestination
+import io.parity.signer.uniffi.MDeriveKey
+import io.parity.signer.uniffi.ScreenData
 
-class NewDeriveKeyActivity : BaseActivity() {
+/**
+ * Email: changjiashuai@gmail.com
+ *
+ * Created by CJS on 2022/7/30 19:57.
+ */
+class NewDeriveKeyFragment : BaseFragment() {
 
-    private lateinit var binding: ActivityNewDeriveKeyBinding
     private val newDeriveKeyViewModel by viewModels<NewDeriveKeyViewModel>()
     private var authentication: Authentication = Authentication(setAuth = { })
+    private var _binding: FragmentNewDeriveKeyBinding? = null
+    private val binding get() = _binding!!
+    private var isBackClick = false
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityNewDeriveKeyBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setupExtras()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentNewDeriveKeyBinding.inflate(inflater, container, false)
         setupView()
         setupViewModel()
+        return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            finish()
+            isBackClick = true
+            newDeriveKeyViewModel.pushButton(Action.GO_BACK)
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setupExtras() {
-        //needBack = intent?.getBooleanExtra(EXTRAS_NEED_GO_BACK, false) ?: false
-    }
-
     private fun setupView() {
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        newDeriveKeyViewModel.pushButton(Action.NEW_KEY)
     }
 
     private fun setupViewModel() {
-        newDeriveKeyViewModel.actionResult.observe(this) {
+        newDeriveKeyViewModel.pushButton(Action.NEW_KEY)
+        newDeriveKeyViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }
     }
@@ -67,7 +71,11 @@ class NewDeriveKeyActivity : BaseActivity() {
                 showAddKeyUi(mDeriveKey)
             }
             is ScreenData.Keys -> {
-                finish()
+                // add key success
+                if (!isBackClick) {
+                    isBackClick = false
+                    findNavController().navigateUp()
+                }
             }
             else -> {
 
@@ -131,8 +139,10 @@ class NewDeriveKeyActivity : BaseActivity() {
                     when (derivationCheck.whereTo) {
                         DerivationDestination.PIN -> {
 //                            signerDataModel.addKey(newKey, mDeriveKey.seedName)
-                            authentication.authenticate(this) {
-                                newDeriveKeyViewModel.addKey(newKey, mDeriveKey.seedName)
+                            activity?.let { activity ->
+                                authentication.authenticate(activity) {
+                                    newDeriveKeyViewModel.addKey(newKey, mDeriveKey.seedName)
+                                }
                             }
                         }
                         DerivationDestination.PWD -> {
@@ -145,7 +155,7 @@ class NewDeriveKeyActivity : BaseActivity() {
                     //冲突地址
                     val address = derivationCheck.collision
                     Toast.makeText(
-                        this,
+                        context,
                         "has exist seedName:${address?.seedName}, path=${address?.path}",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -156,20 +166,7 @@ class NewDeriveKeyActivity : BaseActivity() {
         }
     }
 
-    override fun finish() {
-        newDeriveKeyViewModel.pushButton(Action.GO_BACK)
-        super.finish()
-    }
-
     companion object {
-        private const val TAG = "NewDeriveKeyActivity"
-        private const val EXTRAS_NEED_GO_BACK = "needGoBack"
-
-        fun startActivity(context: Context, needGoBack: Boolean = false) {
-            val intent = Intent(context, NewDeriveKeyActivity::class.java).apply {
-                putExtra(EXTRAS_NEED_GO_BACK, needGoBack)
-            }
-            context.startActivity(intent)
-        }
+        private const val TAG = "NewDeriveKeyFragment"
     }
 }
