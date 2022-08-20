@@ -34,7 +34,7 @@ class NewSeedFragment : BaseFragment() {
     private val newSeedViewModel by viewModels<NewSeedViewModel>()
     private var _binding: FragmentNewSeedBinding? = null
     private val binding get() = _binding!!
-    private val authentication = Authentication {}
+    private val authentication = Authentication()
     private var backupPhraseSheetDialog: BottomSheetDialog? = null
 
     override fun onCreateView(
@@ -107,7 +107,7 @@ class NewSeedFragment : BaseFragment() {
 
     private fun showBackupPhraseSheet(mNewSeedBackup: MNewSeedBackup): BottomSheetDialog? {
         context?.let { context ->
-            val backupPhraseSheet = View.inflate(context, R.layout.activity_new_seed_backup, null)
+            val backupPhraseSheet = View.inflate(context, R.layout.sheet_new_seed_backup, null)
             val tvSeedName = backupPhraseSheet.findViewById<TextView>(R.id.tv_seed_name)
             val tvSeedPhrase = backupPhraseSheet.findViewById<TextView>(R.id.tv_seed_phrase)
             val cbConfirm = backupPhraseSheet.findViewById<CheckBox>(R.id.cb_confirm)

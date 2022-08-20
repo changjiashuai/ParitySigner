@@ -53,6 +53,11 @@
             app:destination="@id/newDeriveKey"
             app:popUpTo="@id/seedDetails" />
 
+        <action
+            android:id="@+id/action_seedDetails_to_keyMultiExport"
+            app:destination="@id/keyMultiExport"
+            app:popUpTo="@id/seedDetails" />
+
         <argument
             android:name="seedName"
             app:argType="string" />
@@ -121,6 +126,14 @@
         <argument
             android:name="type"
             app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/keyMultiExport"
+        android:name="com.changjiashuai.paritysigner.ui.keys.KeyMultiExportFragment"
+        android:label="Key Multi Export"
+        tools:layout="@layout/fragment_key_multi_export">
+
     </fragment>
 
 </navigation>

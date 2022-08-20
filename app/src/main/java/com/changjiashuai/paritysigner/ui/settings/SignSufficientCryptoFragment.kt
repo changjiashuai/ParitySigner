@@ -32,7 +32,7 @@ class SignSufficientCryptoFragment : BaseFragment() {
 
     private val adapter = SignSufficientCryptoAdapter()
     private var action: Int? = null
-    private val authentication = Authentication {}
+    private val authentication = Authentication()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -196,6 +196,11 @@ class SignSufficientCryptoFragment : BaseFragment() {
 
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

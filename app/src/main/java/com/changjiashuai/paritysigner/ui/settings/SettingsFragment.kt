@@ -26,7 +26,7 @@ class SettingsFragment : BaseFragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
-    private val authentication = Authentication {}
+    private val authentication = Authentication()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +48,9 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun setupView() {
+        binding.llAppearance.setOnClickListener {
+            findNavController().navigate(R.id.action_settings_to_appearance)
+        }
         binding.llNetworks.setOnClickListener {
             findNavController().navigate(R.id.action_settings_to_networks)
         }

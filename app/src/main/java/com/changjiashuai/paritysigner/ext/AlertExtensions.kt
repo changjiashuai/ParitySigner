@@ -2,6 +2,9 @@ package com.changjiashuai.paritysigner.ext
 
 import android.content.Context
 import android.content.DialogInterface
+import android.view.View
+import android.widget.AdapterView
+import androidx.annotation.ArrayRes
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -35,23 +38,40 @@ fun Context?.showAlert(
                 // Respond to positive button press
                 confirmClick.invoke()
             }
+            .setCancelable(false)
             .setOnDismissListener { onDismissListener?.invoke(it) }
             .show()
     }
 }
 
-fun Context.showInfoAlert() {
-
-}
-
-fun Context.showWarnAlert() {
-
-}
-
-fun Context.showErrorAlert() {
-
-}
-
-fun Context.showDebugAlert() {
-
+fun Context?.showSingleChoiceAlert(
+    title: String,
+    @ArrayRes itemsId: Int,
+    checkedItem: Int,
+    cancelText: String = "",
+    cancelClick: (() -> Unit) = {},
+    listener: DialogInterface.OnClickListener? = null
+) {
+    this?.let {
+        MaterialAlertDialogBuilder(it)
+            .setTitle(title)
+            .setSingleChoiceItems(itemsId, checkedItem, listener)
+//            .setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+//                override fun onItemSelected(
+//                    parent: AdapterView<*>?,
+//                    view: View?,
+//                    position: Int,
+//                    id: Long
+//                ) {
+//                }
+//
+//                override fun onNothingSelected(parent: AdapterView<*>?) {
+//                }
+//            })
+            .setNegativeButton(cancelText) { dialog, which ->
+                cancelClick.invoke()
+            }
+            .setCancelable(false)
+            .show()
+    }
 }

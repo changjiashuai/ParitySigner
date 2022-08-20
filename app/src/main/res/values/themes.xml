@@ -1,9 +1,174 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ParitySigner" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.ParitySigner" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeBackground">?attr/colorOnPrimary</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
     </style>
 
     <style name="Theme.ParitySigner" parent="Base.Theme.ParitySigner" />
+
+    <style name="AppTheme" parent="Theme.ParitySigner">
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
+    </style>
+
+    <style name="MaterialYou" parent="Theme.ParitySigner">
+        <item name="android:statusBarColor" tools:targetApi="m">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.MaterialYou.Pure" parent="MaterialYou">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="colorSurface">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Red" parent="Theme.ParitySigner">
+        <item name="colorPrimary">@color/red_light_accentLight</item>
+        <item name="colorOnPrimary">@color/red_light_accentDark</item>
+        <item name="colorPrimaryContainer">@color/red_light_accentLight</item>
+        <item name="colorOnPrimaryContainer">@color/red_light_accentLight</item>
+
+        <item name="colorSecondary">@color/red_light_accentLight</item>
+        <item name="colorOnSecondary">@color/red_light_accentDark</item>
+        <item name="colorSecondaryContainer">@color/red_light_accentDark</item>
+        <item name="colorOnSecondaryContainer">@color/red_light_background</item>
+
+        <item name="android:colorBackground">@color/red_light_background</item>
+        <item name="colorOnBackground">@color/red_light_background</item>
+
+        <item name="android:statusBarColor" tools:targetApi="m">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+    </style>
+
+    <style name="Theme.Red.Pure" parent="Theme.Red">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="colorSurface">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Blue" parent="Theme.ParitySigner">
+        <item name="colorPrimary">@color/blue_light_accentLight</item>
+        <item name="colorOnPrimary">@color/blue_light_accentDark</item>
+        <item name="colorPrimaryContainer">@color/blue_light_accentLight</item>
+        <item name="colorOnPrimaryContainer">@color/blue_light_accentLight</item>
+        <item name="colorSecondary">@color/blue_light_accentLight</item>
+        <item name="colorOnSecondary">@color/blue_light_accentDark</item>
+        <item name="colorSecondaryContainer">@color/blue_light_accentDark</item>
+        <item name="colorOnSecondaryContainer">@color/blue_light_background</item>
+        <item name="android:colorBackground">@color/blue_light_background</item>
+        <item name="colorOnBackground">@color/blue_light_background</item>
+
+        <item name="android:statusBarColor" tools:targetApi="m">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+    </style>
+
+    <style name="Theme.Blue.Pure" parent="Theme.Blue">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="colorSurface">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Yellow" parent="Theme.ParitySigner">
+        <item name="colorPrimary">@color/yellow_light_accentLight</item>
+        <item name="colorOnPrimary">@color/yellow_light_accentDark</item>
+        <item name="colorPrimaryContainer">@color/yellow_light_accentLight</item>
+        <item name="colorOnPrimaryContainer">@color/yellow_light_accentLight</item>
+        <item name="colorSecondary">@color/yellow_light_accentLight</item>
+        <item name="colorOnSecondary">@color/yellow_light_accentDark</item>
+        <item name="colorSecondaryContainer">@color/yellow_light_accentDark</item>
+        <item name="colorOnSecondaryContainer">@color/yellow_light_background</item>
+        <item name="android:colorBackground">@color/yellow_light_background</item>
+        <item name="colorOnBackground">@color/yellow_light_background</item>
+
+        <item name="android:statusBarColor" tools:targetApi="m">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+    </style>
+
+    <style name="Theme.Yellow.Pure" parent="Theme.Yellow">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="colorSurface">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Green" parent="Theme.ParitySigner">
+        <item name="colorPrimary">@color/green_light_accentLight</item>
+        <item name="colorOnPrimary">@color/green_light_accentDark</item>
+        <item name="colorPrimaryContainer">@color/green_light_accentLight</item>
+        <item name="colorOnPrimaryContainer">@color/green_light_accentLight</item>
+        <item name="colorSecondary">@color/green_light_accentLight</item>
+        <item name="colorOnSecondary">@color/green_light_accentDark</item>
+        <item name="colorSecondaryContainer">@color/green_light_accentDark</item>
+        <item name="colorOnSecondaryContainer">@color/green_light_background</item>
+        <item name="android:colorBackground">@color/green_light_background</item>
+        <item name="colorOnBackground">@color/green_light_background</item>
+
+        <item name="android:statusBarColor" tools:targetApi="m">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+    </style>
+
+    <style name="Theme.Green.Pure" parent="Theme.Green">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="colorSurface">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Purple" parent="Theme.ParitySigner">
+        <item name="colorPrimary">@color/purple_light_accentLight</item>
+        <item name="colorOnPrimary">@color/purple_light_accentDark</item>
+        <item name="colorPrimaryContainer">@color/purple_light_accentLight</item>
+        <item name="colorOnPrimaryContainer">@color/purple_light_accentLight</item>
+        <item name="colorSecondary">@color/purple_light_accentLight</item>
+        <item name="colorOnSecondary">@color/purple_light_accentDark</item>
+        <item name="colorSecondaryContainer">@color/purple_light_accentDark</item>
+        <item name="colorOnSecondaryContainer">@color/purple_light_background</item>
+        <item name="android:colorBackground">@color/purple_light_background</item>
+        <item name="colorOnBackground">@color/purple_light_background</item>
+
+        <item name="android:statusBarColor" tools:targetApi="m">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.Purple.Pure" parent="Theme.Purple">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="colorSurface">@android:color/white</item>
+    </style>
 </resources>

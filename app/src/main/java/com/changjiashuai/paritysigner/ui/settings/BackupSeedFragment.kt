@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +39,7 @@ class BackupSeedFragment : BaseFragment() {
     private var _binding: FragmentBackupSeedBinding? = null
     private val binding get() = _binding!!
     private val adapter = SeedAdapter()
-    private val authentication = Authentication {}
+    private val authentication = Authentication()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,7 +109,7 @@ class BackupSeedFragment : BaseFragment() {
         tvSeedName.text = "Seed Name: $seedName"
         val tvSeedPhrase = view.findViewById<TextView>(R.id.tv_seed_phrase)
         var phraseTips = "<font color='#ff0000'>Seed Phrase (倒计时60s 助记词消失不可见)</font>"
-        tvSeedPhrase.text = Html.fromHtml(phraseTips, Html.FROM_HTML_MODE_COMPACT)
+        tvSeedPhrase.text = HtmlCompat.fromHtml(phraseTips, HtmlCompat.FROM_HTML_MODE_COMPACT)
         val tvSeedPhraseValue = view.findViewById<TextView>(R.id.tv_seed_phrase_value)
 
         //fixme
@@ -125,7 +126,7 @@ class BackupSeedFragment : BaseFragment() {
                             phraseTips =
                                 "<font color='#ff0000'>Seed Phrase (倒计时${second}s 助记词消失不可见)</font>"
                             tvSeedPhrase.text =
-                                Html.fromHtml(phraseTips, Html.FROM_HTML_MODE_COMPACT)
+                                HtmlCompat.fromHtml(phraseTips, HtmlCompat.FROM_HTML_MODE_COMPACT)
                             if (tvSeedPhrase.isGone) {
                                 tvSeedPhrase.isGone = false
                             }

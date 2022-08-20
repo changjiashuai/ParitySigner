@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ParitySigner">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.scan.TransactionPreviewActivity"
             android:exported="false" />
@@ -30,8 +30,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:launchMode="singleInstance"
-            android:theme="@style/Theme.ParitySigner">
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

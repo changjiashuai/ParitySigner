@@ -36,7 +36,6 @@ open class AbsViewModel : ViewModel() {
             alertData = null,
         )
     )
-
     val actionResult: LiveData<ActionResult> = _actionResult
 
     fun pushButton(
@@ -47,6 +46,7 @@ open class AbsViewModel : ViewModel() {
         try {
             Log.i("AbsViewModel", "push button=$button, details=$details, seedPhrase=$seedPhrase")
             _actionResult.value = backendAction(button, details, seedPhrase)
+            Log.i("AbsViewModel", "push button after _actionResult=${_actionResult.value}")
         } catch (e: Exception) {
             Log.e("Navigation error", e.toString())
         }
@@ -64,6 +64,7 @@ open class AbsViewModel : ViewModel() {
         } else {
             updateSeedNames(allNames.toList())
         }
+        Log.i("AbsViewModel", "seedNames=$allNames")
         _seedNames.value = allNames
     }
 }

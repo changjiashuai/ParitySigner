@@ -30,7 +30,7 @@ class RecoverSeedPhraseFragment : BaseFragment() {
     private val recoverSeedPhraseViewModel by viewModels<RecoverSeedPhraseViewModel>()
     private var _binding: FragmentRecoverSeedPhraseBinding? = null
     private val binding get() = _binding!!
-    private val authentication = Authentication {}
+    private val authentication = Authentication()
     private var seedName = ""
     private var phrases = listOf<String>()
     private var readySeed: String? = null

@@ -28,7 +28,6 @@ class RecoverSeedFragment : BaseFragment() {
     private val recoverSeedViewModel by viewModels<RecoverSeedViewModel>()
     private var _binding: FragmentRecoverSeedBinding? = null
     private val binding get() = _binding!!
-    private val authentication = Authentication {}
     private var seedName = ""
 
     override fun onCreateView(

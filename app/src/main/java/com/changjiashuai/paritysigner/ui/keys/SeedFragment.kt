@@ -10,7 +10,6 @@ import com.changjiashuai.paritysigner.BaseFragment
 import com.changjiashuai.paritysigner.R
 import com.changjiashuai.paritysigner.adapter.SeedAdapter
 import com.changjiashuai.paritysigner.databinding.FragmentSeedBinding
-import com.changjiashuai.paritysigner.ext.showSheetStyle1
 import com.changjiashuai.paritysigner.ext.showSheetStyle2
 import com.changjiashuai.paritysigner.models.AlertState
 import com.changjiashuai.paritysigner.utils.AirPlaneUtils
@@ -25,8 +24,6 @@ class SeedFragment : BaseFragment() {
     private var _binding: FragmentSeedBinding? = null
     private val binding get() = _binding!!
     private val adapter = SeedAdapter()
-
-    private var recoverSeedPhraseBottomSheetFragment: RecoverSeedPhraseBottomSheetFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,7 +105,6 @@ class SeedFragment : BaseFragment() {
 
     private fun setupViewModel() {
         seedViewModel.actionResult.observe(viewLifecycleOwner) {
-            Log.i(TAG, "actionResult=$it")
             processActionResult(it)
         }
     }

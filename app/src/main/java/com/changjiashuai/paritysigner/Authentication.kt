@@ -11,48 +11,29 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 
 
-class Authentication(val setAuth: (Boolean) -> Unit) {
-    private var strongCredentials: Boolean = false
-
-    private lateinit var biometricPrompt: BiometricPrompt
-    private lateinit var context: Context
+class Authentication {
 
     fun authenticate(activity: FragmentActivity, onSuccess: () -> Unit) {
-        this.context = activity.applicationContext
+        val context = activity.applicationContext
         val biometricManager = BiometricManager.from(context)
-        val hasStrongbox = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            context
-                .packageManager
-                .hasSystemFeature(PackageManager.FEATURE_STRONGBOX_KEYSTORE)
-        } else {
-            false
-        }
-        this.strongCredentials = hasStrongbox
+        val hasStrongbox = hasStrongBox(context)
 
         Log.d("strongbox available:", hasStrongbox.toString())
 
-        val promptInfo =
-            if (strongCredentials) {
-                BiometricPrompt.PromptInfo.Builder()
-                    .setTitle("UNLOCK SIGNER")
-                    .setSubtitle("Please authenticate yourself")
-                    .setAllowedAuthenticators(BiometricManager.Authenticators.DEVICE_CREDENTIAL)
-                    .build()
-            } else {
-                BiometricPrompt.PromptInfo.Builder()
-                    .setTitle("UNLOCK SIGNER")
-                    .setSubtitle("Please authenticate yourself")
-                    .setNegativeButtonText("Cancel")
-                    .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
-                    .build()
-            }
+        val promptInfo = buildPromptInfo(hasStrongbox)
 
-        when (biometricManager.canAuthenticate(if (strongCredentials) BiometricManager.Authenticators.DEVICE_CREDENTIAL else BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
+        val authenticators = if (hasStrongbox) {
+            BiometricManager.Authenticators.DEVICE_CREDENTIAL
+        } else {
+            BiometricManager.Authenticators.BIOMETRIC_STRONG
+        }
+
+        when (biometricManager.canAuthenticate(authenticators)) {
             BiometricManager.BIOMETRIC_SUCCESS -> {
 
                 val executor = ContextCompat.getMainExecutor(context)
 
-                biometricPrompt = BiometricPrompt(
+                val biometricPrompt = BiometricPrompt(
                     activity, executor,
                     object : BiometricPrompt.AuthenticationCallback() {
                         override fun onAuthenticationError(
@@ -63,16 +44,13 @@ class Authentication(val setAuth: (Boolean) -> Unit) {
                             Toast.makeText(
                                 context,
                                 "Authentication error: $errString", Toast.LENGTH_SHORT
-                            )
-                                .show()
-                            setAuth(false)
+                            ).show()
                         }
 
                         override fun onAuthenticationSucceeded(
                             result: BiometricPrompt.AuthenticationResult
                         ) {
                             super.onAuthenticationSucceeded(result)
-                            setAuth(true)
                             onSuccess()
                         }
 
@@ -81,9 +59,7 @@ class Authentication(val setAuth: (Boolean) -> Unit) {
                             Toast.makeText(
                                 context, "Authentication failed",
                                 Toast.LENGTH_SHORT
-                            )
-                                .show()
-                            setAuth(false)
+                            ).show()
                         }
                     })
 
@@ -109,7 +85,7 @@ class Authentication(val setAuth: (Boolean) -> Unit) {
                 Toast.makeText(
                     context,
                     "Authentication system not enrolled; please enable "
-                            + if (strongCredentials)
+                            + if (hasStrongbox)
                         "password or pin code"
                     else
                         "biometric authentication",
@@ -145,8 +121,32 @@ class Authentication(val setAuth: (Boolean) -> Unit) {
 
     }
 
+    /**
+     * Returns whether the device has a StrongBox backed KeyStore.
+     */
+    private fun hasStrongBox(context: Context): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            context.packageManager
+                .hasSystemFeature(PackageManager.FEATURE_STRONGBOX_KEYSTORE)
+        } else {
+            false
+        }
+    }
 
+    private fun buildPromptInfo(hasStrongBox: Boolean): BiometricPrompt.PromptInfo {
+        return if (hasStrongBox) {
+            BiometricPrompt.PromptInfo.Builder()
+                .setTitle("UNLOCK SIGNER")
+                .setSubtitle("Please authenticate yourself")
+                .setAllowedAuthenticators(BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+                .build()
+        } else {
+            BiometricPrompt.PromptInfo.Builder()
+                .setTitle("UNLOCK SIGNER")
+                .setSubtitle("Please authenticate yourself")
+                .setNegativeButtonText("Cancel")
+                .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+                .build()
+        }
+    }
 }
-
-
-

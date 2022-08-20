@@ -25,7 +25,7 @@ import io.parity.signer.uniffi.ScreenData
 class NewDeriveKeyFragment : BaseFragment() {
 
     private val newDeriveKeyViewModel by viewModels<NewDeriveKeyViewModel>()
-    private var authentication: Authentication = Authentication(setAuth = { })
+    private var authentication: Authentication = Authentication()
     private var _binding: FragmentNewDeriveKeyBinding? = null
     private val binding get() = _binding!!
     private var isBackClick = false

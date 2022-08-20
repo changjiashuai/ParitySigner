@@ -2,8 +2,8 @@ package com.changjiashuai.paritysigner
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.changjiashuai.paritysigner.ext.showAlert
 import com.changjiashuai.paritysigner.models.AlertState
@@ -19,9 +19,22 @@ import io.parity.signer.uniffi.*
 open class BaseFragment : Fragment() {
 
     private lateinit var airPlaneModeState: SystemActionLiveData
+    private val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            onBackPressed()
+        }
+    }
+
+    open fun onBackPressed() {}
+
+    override fun onDetach() {
+        callback.remove()
+        super.onDetach()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(callback)
         context?.let { context ->
             airPlaneModeState = SystemActionLiveData(context, Intent.ACTION_AIRPLANE_MODE_CHANGED)
             airPlaneModeState.observe(this) {
@@ -44,7 +57,7 @@ open class BaseFragment : Fragment() {
     }
 
     open fun processActionResult(actionResult: ActionResult) {
-        Log.i("BaseFragment", "actionResult=$actionResult")
+//        Log.i("BaseFragment", "actionResult=$actionResult")
         if (actionResult.alertData == null) {
             if (actionResult.modalData == null) {
                 processScreenData(actionResult.screenData)
@@ -57,7 +70,7 @@ open class BaseFragment : Fragment() {
     }
 
     open fun processAlertData(alertData: AlertData) {
-        Log.i("BaseFragment", "alertData=$alertData")
+//        Log.i("BaseFragment", "alertData=$alertData")
         when (alertData) {
             is AlertData.Shield -> {
                 showShieldAlert(context?.let { AirPlaneUtils.getAlertState(it) })
@@ -135,11 +148,11 @@ open class BaseFragment : Fragment() {
     open fun onSecure() {}
     open fun onAcknowledgeAndReset() {
         if (context != null) {
-            if (AirPlaneUtils.isAirplaneOn(context!!) && historyGetWarnings(DbUtils.dbName)) {
+            if (AirPlaneUtils.isAirplaneOn(requireContext()) && historyGetWarnings(DbUtils.dbName)) {
                 historyAcknowledgeWarnings(DbUtils.dbName)
                 onAirPlaneModeChanged(
-                    AirPlaneUtils.isAirplaneOn(context!!),
-                    AirPlaneUtils.getAlertState(context!!)
+                    AirPlaneUtils.isAirplaneOn(requireContext()),
+                    AirPlaneUtils.getAlertState(requireContext())
                 )
             }
         }

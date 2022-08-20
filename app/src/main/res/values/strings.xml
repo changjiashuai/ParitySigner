@@ -52,4 +52,20 @@
     <string name="title_scan">Scan</string>
     <string name="title_keys">Keys</string>
     <string name="title_settings">Settings</string>
+
+
+    <string name="systemDefault">System</string>
+    <string name="lightTheme">Light</string>
+    <string name="darkTheme">Dark</string>
+
+    <string name="pure_white">Pure White</string>
+    <string name="pure_black">Pure Black</string>
+
+    <string name="color_accent">Accents</string>
+    <string name="color_red">Resting red</string>
+    <string name="color_blue">Blissful blue</string>
+    <string name="color_yellow">Yeeting yellow</string>
+    <string name="color_green">Groovy green</string>
+    <string name="color_purple">Pleasurable purple</string>
+    <string name="material_you">Material you</string>
 </resources>

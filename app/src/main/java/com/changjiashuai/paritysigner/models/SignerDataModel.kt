@@ -48,8 +48,7 @@ class SignerDataModel : ViewModel() {
     private val _authenticated = MutableLiveData(false)
 
     // Authenticator to call!
-    internal var authentication: Authentication =
-        Authentication(setAuth = { _authenticated.value = it })
+    internal var authentication: Authentication = Authentication()
 
 
     // Transaction

@@ -115,4 +115,17 @@ class SeedDetailsViewModel : AbsViewModel() {
         }
     }
 
+    fun increment(number: Int, seedName: String) {
+//        authentication.authenticate(activity) {
+        try {
+            val seedPhrase = getSeed(seedName)
+            if (seedPhrase.isNotBlank()) {
+                pushButton(Action.INCREMENT, number.toString())
+            }
+        } catch (e: Exception) {
+            Log.e("Add key error", e.toString())
+        }
+//        }
+    }
+
 }

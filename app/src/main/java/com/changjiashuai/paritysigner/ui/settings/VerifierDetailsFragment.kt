@@ -23,7 +23,7 @@ class VerifierDetailsFragment : BaseFragment() {
     private val verifierDetailsViewModel by viewModels<VerifierDetailsViewModel>()
     private var _binding: FragmentVerifierDetailsBinding? = null
     private val binding get() = _binding!!
-    private val authentication = Authentication {}
+    private val authentication = Authentication()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

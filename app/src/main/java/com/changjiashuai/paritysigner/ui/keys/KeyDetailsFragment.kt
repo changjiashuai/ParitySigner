@@ -10,7 +10,7 @@ import com.changjiashuai.paritysigner.BaseFragment
 import com.changjiashuai.paritysigner.R
 import com.changjiashuai.paritysigner.databinding.FragmentKeyDetailsBinding
 import com.changjiashuai.paritysigner.ext.showAlert
-import com.changjiashuai.paritysigner.ext.showWarnSheet
+import com.changjiashuai.paritysigner.ext.showSheetStyle1
 import com.changjiashuai.paritysigner.ext.toBitmap
 import com.changjiashuai.paritysigner.models.abbreviateString
 import com.changjiashuai.paritysigner.viewmodel.KeyDetailsViewModel
@@ -88,7 +88,6 @@ class KeyDetailsFragment : BaseFragment() {
         when (screenData) {
             //After remove key success.
             is ScreenData.Log -> {
-                //fixme: switch to log tab ???
                 findNavController().navigate(R.id.logScreen)
             }
             is ScreenData.KeyDetails -> {
@@ -132,11 +131,10 @@ class KeyDetailsFragment : BaseFragment() {
     override fun processModalData(modalData: ModalData) {
         Log.i(TAG, "modalData=$modalData")
         if (modalData is ModalData.KeyDetailsAction) {
-            context?.showWarnSheet(
+            context?.showSheetStyle1(
                 title = "Key Menu",
                 actionText = "Forget this key forever",
                 actionClick = {
-                    it.dismiss()
                     context?.showAlert(
                         title = "Forget this key?",
                         message = "This key will be removed for this network. Are you sure?",
@@ -151,7 +149,8 @@ class KeyDetailsFragment : BaseFragment() {
                         }
                     )
                 },
-                onDismissListener = {
+                cancelText = "Cancel",
+                cancelClick = {
                     keyDetailsViewModel.pushButton(Action.GO_BACK)
                 }
             )
@@ -161,6 +160,11 @@ class KeyDetailsFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onBackPressed() {
+        keyDetailsViewModel.pushButton(Action.GO_BACK)
+        findNavController().navigateUp()
     }
 
     companion object {
