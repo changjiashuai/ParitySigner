@@ -12,7 +12,7 @@ import androidx.lifecycle.LiveData
  * Created by CJS on 2022/7/23 14:18.
  */
 class SystemActionLiveData(private val context: Context, vararg actions: String) :
-    LiveData<String>() {
+    LiveData<String?>() {
 
     private var intentFilter: IntentFilter = IntentFilter()
 

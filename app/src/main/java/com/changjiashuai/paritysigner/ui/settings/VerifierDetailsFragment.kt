@@ -46,7 +46,7 @@ class VerifierDetailsFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            verifierDetailsViewModel.pushButton(Action.GO_BACK)
+            verifierDetailsViewModel.doAction(Action.GO_BACK)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -55,7 +55,7 @@ class VerifierDetailsFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        verifierDetailsViewModel.pushButton(Action.VIEW_GENERAL_VERIFIER)
+        verifierDetailsViewModel.doAction(Action.VIEW_GENERAL_VERIFIER)
         verifierDetailsViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }

@@ -62,7 +62,7 @@ class SignSufficientCryptoFragment : BaseFragment() {
         if (item.itemId == android.R.id.home) {
             //
             Log.i(TAG, "back click")
-            signSufficientCryptoViewModel.pushButton(Action.GO_BACK)
+            signSufficientCryptoViewModel.doAction(Action.GO_BACK)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -81,11 +81,11 @@ class SignSufficientCryptoFragment : BaseFragment() {
 
     private fun setupViewModel() {
         if (action == Action.SIGN_METADATA.ordinal) {
-            signSufficientCryptoViewModel.pushButton(Action.SIGN_METADATA)
+            signSufficientCryptoViewModel.doAction(Action.SIGN_METADATA)
         } else if (action == Action.SIGN_NETWORK_SPECS.ordinal) {
-            signSufficientCryptoViewModel.pushButton(Action.SIGN_NETWORK_SPECS)
+            signSufficientCryptoViewModel.doAction(Action.SIGN_NETWORK_SPECS)
         } else if (action == Action.SIGN_TYPES.ordinal) {
-            signSufficientCryptoViewModel.pushButton(Action.SIGN_TYPES)
+            signSufficientCryptoViewModel.doAction(Action.SIGN_TYPES)
         }
         signSufficientCryptoViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)

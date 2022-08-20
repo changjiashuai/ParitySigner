@@ -4,13 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.changjiashuai.paritysigner.OnBoardingState
-import com.changjiashuai.paritysigner.SystemActionLiveData
-import com.changjiashuai.paritysigner.models.AlertState
 import com.changjiashuai.paritysigner.utils.DbUtils
 import com.changjiashuai.paritysigner.utils.PrefsUtils
 import io.parity.signer.uniffi.*
-import java.io.File
 
 /**
  * Email: changjiashuai@gmail.com
@@ -18,10 +14,6 @@ import java.io.File
  * Created by CJS on 2022/7/18 21:34.
  */
 open class AbsViewModel : ViewModel() {
-
-    // Alert
-//    private val _alertState: MutableLiveData<AlertState> = MutableLiveData(AlertState.None)
-//    val alertState: LiveData<AlertState> = _alertState
 
     private val _actionResult = MutableLiveData(
         ActionResult(
@@ -38,7 +30,7 @@ open class AbsViewModel : ViewModel() {
     )
     val actionResult: LiveData<ActionResult> = _actionResult
 
-    fun pushButton(
+    fun doAction(
         button: Action,
         details: String = "",
         seedPhrase: String = ""
@@ -66,5 +58,25 @@ open class AbsViewModel : ViewModel() {
         }
         Log.i("AbsViewModel", "seedNames=$allNames")
         _seedNames.value = allNames
+    }
+
+    protected fun getSeed(
+        seedName: String,
+        backup: Boolean = false
+    ): String {
+        return try {
+            val seedPhrase = PrefsUtils.sharedPreferences.getString(seedName, "") ?: ""
+            if (seedPhrase.isBlank()) {
+                ""
+            } else {
+                if (backup) {
+                    historySeedNameWasShown(seedName, DbUtils.dbName)
+                }
+                seedPhrase
+            }
+        } catch (e: Exception) {
+            Log.d("get seed failure", e.toString())
+            ""
+        }
     }
 }

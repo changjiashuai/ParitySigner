@@ -17,7 +17,7 @@ import com.changjiashuai.paritysigner.BaseFragment
 import com.changjiashuai.paritysigner.R
 import com.changjiashuai.paritysigner.databinding.FragmentNewSeedBinding
 import com.changjiashuai.paritysigner.ext.showInfoSheet
-import com.changjiashuai.paritysigner.viewmodel.NewSeedViewModel
+import com.changjiashuai.paritysigner.viewmodel.SeedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.parity.signer.uniffi.Action
 import io.parity.signer.uniffi.MNewSeedBackup
@@ -31,7 +31,7 @@ import io.parity.signer.uniffi.ScreenData
  */
 class NewSeedFragment : BaseFragment() {
 
-    private val newSeedViewModel by viewModels<NewSeedViewModel>()
+    private val newSeedViewModel by viewModels<SeedViewModel>()
     private var _binding: FragmentNewSeedBinding? = null
     private val binding get() = _binding!!
     private val authentication = Authentication()
@@ -59,7 +59,7 @@ class NewSeedFragment : BaseFragment() {
             val seedNames = newSeedViewModel.seedNames.value ?: emptyArray()
             val seedName = binding.etSeed.text?.toString()
             if (!seedNames.contains(seedName)) {
-                newSeedViewModel.pushButton(Action.GO_FORWARD, seedName!!)
+                newSeedViewModel.doAction(Action.GO_FORWARD, seedName!!)
             } else {
                 //This seed name already exists
                 binding.tilSeed.error = "This seed name already exists"
@@ -68,7 +68,7 @@ class NewSeedFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        newSeedViewModel.pushButton(Action.NEW_SEED)
+        newSeedViewModel.doAction(Action.NEW_SEED)
         newSeedViewModel.actionResult.observe(viewLifecycleOwner) {
             Log.i(TAG, "actionResult=$it")
             processActionResult(it)

@@ -45,7 +45,7 @@ class SettingsViewModel : AbsViewModel() {
 //            getAlertState()
 //            isAirplaneOn()
             refreshSeedNames(init = true)
-            pushButton(Action.START)
+            doAction(Action.START)
         }
     }
 }

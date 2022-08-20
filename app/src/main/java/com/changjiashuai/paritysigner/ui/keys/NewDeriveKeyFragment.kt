@@ -48,7 +48,7 @@ class NewDeriveKeyFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             isBackClick = true
-            newDeriveKeyViewModel.pushButton(Action.GO_BACK)
+            newDeriveKeyViewModel.doAction(Action.GO_BACK)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -57,7 +57,7 @@ class NewDeriveKeyFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        newDeriveKeyViewModel.pushButton(Action.NEW_KEY)
+        newDeriveKeyViewModel.doAction(Action.NEW_KEY)
         newDeriveKeyViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }
@@ -147,7 +147,7 @@ class NewDeriveKeyFragment : BaseFragment() {
                         }
                         DerivationDestination.PWD -> {
 //                            signerDataModel.pushButton(Action.CHECK_PASSWORD, newKey)
-                            newDeriveKeyViewModel.pushButton(Action.CHECK_PASSWORD, newKey)
+                            newDeriveKeyViewModel.doAction(Action.CHECK_PASSWORD, newKey)
                         }
                         null -> {}
                     }

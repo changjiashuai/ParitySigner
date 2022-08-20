@@ -13,7 +13,7 @@ import com.changjiashuai.paritysigner.adapter.NetworkAdapter
 import com.changjiashuai.paritysigner.databinding.FragmentManageNetworksBinding
 import com.changjiashuai.paritysigner.ext.showAlert
 import com.changjiashuai.paritysigner.ext.showSheetStyle2
-import com.changjiashuai.paritysigner.viewmodel.ManageNetworksViewModel
+import com.changjiashuai.paritysigner.viewmodel.AbsViewModel
 import io.parity.signer.uniffi.Action
 import io.parity.signer.uniffi.AlertData
 import io.parity.signer.uniffi.ModalData
@@ -26,7 +26,7 @@ import io.parity.signer.uniffi.ScreenData
  */
 class ManageNetworksFragment : BaseFragment() {
 
-    private val manageNetworksViewModel by viewModels<ManageNetworksViewModel>()
+    private val manageNetworksViewModel by viewModels<AbsViewModel>()
     private val adapter = NetworkAdapter()
     private var _binding: FragmentManageNetworksBinding? = null
     private val binding get() = _binding!!
@@ -57,11 +57,11 @@ class ManageNetworksFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            manageNetworksViewModel.pushButton(Action.GO_BACK)
+            manageNetworksViewModel.doAction(Action.GO_BACK)
             findNavController().navigate(R.id.settingsScreen)
         } else if (item.itemId == R.id.action_network) {
             //Manage Types
-            manageNetworksViewModel.pushButton(Action.RIGHT_BUTTON_ACTION)
+            manageNetworksViewModel.doAction(Action.RIGHT_BUTTON_ACTION)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -76,7 +76,7 @@ class ManageNetworksFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        manageNetworksViewModel.pushButton(Action.MANAGE_NETWORKS)
+        manageNetworksViewModel.doAction(Action.MANAGE_NETWORKS)
         manageNetworksViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }
@@ -136,18 +136,18 @@ class ManageNetworksFragment : BaseFragment() {
                             showCancel = true,
                             cancelText = "Cancel",
                             cancelClick = {
-                                manageNetworksViewModel.pushButton(Action.GO_BACK)
+                                manageNetworksViewModel.doAction(Action.GO_BACK)
                             },
                             confirmText = "Remove types",
                             confirmClick = {
                                 //alertData=ErrorData(f=Could not find types information.)
-                                manageNetworksViewModel.pushButton(Action.REMOVE_TYPES)
+                                manageNetworksViewModel.doAction(Action.REMOVE_TYPES)
                             }
                         )
                     },
                     cancelText = "Cancel",
                     cancelClick = {
-                        manageNetworksViewModel.pushButton(Action.GO_BACK)
+                        manageNetworksViewModel.doAction(Action.GO_BACK)
                     }
                 )
             }

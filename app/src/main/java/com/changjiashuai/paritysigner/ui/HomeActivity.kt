@@ -71,19 +71,19 @@ class HomeActivity : BaseActivity() {
             when (destination.id) {
                 R.id.log -> {
                     binding.toolbar.title = "Log"
-                    absViewModel.pushButton(Action.NAVBAR_LOG)
+                    absViewModel.doAction(Action.NAVBAR_LOG)
                 }
                 R.id.scan -> {
                     binding.toolbar.title = "Scan"
-                    absViewModel.pushButton(Action.NAVBAR_KEYS)
+                    absViewModel.doAction(Action.NAVBAR_KEYS)
                 }
                 R.id.keys -> {
                     binding.toolbar.title = "Seed"
-                    absViewModel.pushButton(Action.NAVBAR_SCAN)
+                    absViewModel.doAction(Action.NAVBAR_SCAN)
                 }
                 R.id.settings -> {
                     binding.toolbar.title = "Settings"
-                    absViewModel.pushButton(Action.NAVBAR_SETTINGS)
+                    absViewModel.doAction(Action.NAVBAR_SETTINGS)
                 }
             }
         }

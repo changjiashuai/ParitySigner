@@ -13,7 +13,7 @@ import com.changjiashuai.paritysigner.ext.showAlert
 import com.changjiashuai.paritysigner.ext.showSheetStyle1
 import com.changjiashuai.paritysigner.ext.toBitmap
 import com.changjiashuai.paritysigner.models.abbreviateString
-import com.changjiashuai.paritysigner.viewmodel.KeyDetailsViewModel
+import com.changjiashuai.paritysigner.viewmodel.AbsViewModel
 import io.parity.signer.uniffi.Action
 import io.parity.signer.uniffi.ModalData
 import io.parity.signer.uniffi.ScreenData
@@ -25,7 +25,7 @@ import io.parity.signer.uniffi.ScreenData
  */
 class KeyDetailsFragment : BaseFragment() {
 
-    private val keyDetailsViewModel by viewModels<KeyDetailsViewModel>()
+    private val keyDetailsViewModel by viewModels<AbsViewModel>()
     private var _binding: FragmentKeyDetailsBinding? = null
     private val binding get() = _binding!!
     private var type: Int = SeedDetailsFragment.KEY_TYPE_SEED
@@ -61,9 +61,9 @@ class KeyDetailsFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            keyDetailsViewModel.pushButton(Action.GO_BACK)
+            keyDetailsViewModel.doAction(Action.GO_BACK)
         } else if (item.itemId == R.id.action_seed) {
-            keyDetailsViewModel.pushButton(Action.RIGHT_BUTTON_ACTION)
+            keyDetailsViewModel.doAction(Action.RIGHT_BUTTON_ACTION)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -77,7 +77,7 @@ class KeyDetailsFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        keyDetailsViewModel.pushButton(Action.SELECT_KEY, addressKey)
+        keyDetailsViewModel.doAction(Action.SELECT_KEY, addressKey)
         keyDetailsViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }
@@ -141,17 +141,17 @@ class KeyDetailsFragment : BaseFragment() {
                         showCancel = true,
                         cancelText = "Cancel",
                         cancelClick = {
-                            keyDetailsViewModel.pushButton(Action.GO_BACK)
+                            keyDetailsViewModel.doAction(Action.GO_BACK)
                         },
                         confirmText = "Remove key",
                         confirmClick = {
-                            keyDetailsViewModel.pushButton(Action.REMOVE_KEY)
+                            keyDetailsViewModel.doAction(Action.REMOVE_KEY)
                         }
                     )
                 },
                 cancelText = "Cancel",
                 cancelClick = {
-                    keyDetailsViewModel.pushButton(Action.GO_BACK)
+                    keyDetailsViewModel.doAction(Action.GO_BACK)
                 }
             )
         }
@@ -163,7 +163,7 @@ class KeyDetailsFragment : BaseFragment() {
     }
 
     override fun onBackPressed() {
-        keyDetailsViewModel.pushButton(Action.GO_BACK)
+        keyDetailsViewModel.doAction(Action.GO_BACK)
         findNavController().navigateUp()
     }
 

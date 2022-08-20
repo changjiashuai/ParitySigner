@@ -83,7 +83,7 @@ class ScanFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        scanViewModel.pushButton(Action.NAVBAR_SCAN)
+        scanViewModel.doAction(Action.NAVBAR_SCAN)
         hasProcessed = false
     }
 
@@ -105,7 +105,7 @@ class ScanFragment : BaseFragment() {
         }
         binding.rlQrParse.btnStartOver.setOnClickListener {
             scanViewModel.resetScanValues()
-            scanViewModel.pushButton(Action.GO_BACK)
+            scanViewModel.doAction(Action.GO_BACK)
             hasProcessed = false
         }
     }

@@ -22,7 +22,7 @@ import com.changjiashuai.paritysigner.databinding.FragmentSeedDetailsBinding
 import com.changjiashuai.paritysigner.ext.*
 import com.changjiashuai.paritysigner.models.*
 import com.changjiashuai.paritysigner.utils.AirPlaneUtils
-import com.changjiashuai.paritysigner.viewmodel.SeedDetailsViewModel
+import com.changjiashuai.paritysigner.viewmodel.SeedViewModel
 import io.parity.signer.uniffi.*
 
 /**
@@ -32,7 +32,7 @@ import io.parity.signer.uniffi.*
  */
 class SeedDetailsFragment : BaseFragment() {
 
-    private val seedDetailsViewModel by viewModels<SeedDetailsViewModel>()
+    private val seedDetailsViewModel by viewModels<SeedViewModel>()
     private val authentication = Authentication()
     private var _binding: FragmentSeedDetailsBinding? = null
     private val binding get() = _binding!!
@@ -73,13 +73,13 @@ class SeedDetailsFragment : BaseFragment() {
         if (item.itemId == android.R.id.home) {
             onBackPressed()
         } else if (item.itemId == R.id.action_seed) {
-            seedDetailsViewModel.pushButton(Action.RIGHT_BUTTON_ACTION)
+            seedDetailsViewModel.doAction(Action.RIGHT_BUTTON_ACTION)
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {
-        seedDetailsViewModel.pushButton(Action.GO_BACK)
+        seedDetailsViewModel.doAction(Action.GO_BACK)
         findNavController().navigateUp()
     }
 
@@ -90,7 +90,7 @@ class SeedDetailsFragment : BaseFragment() {
             actionClick = {
                 val alertState = context?.let { AirPlaneUtils.getAlertState(it) }
                 if (alertState == AlertState.None) {
-                    seedDetailsViewModel.pushButton(Action.BACKUP_SEED)
+                    seedDetailsViewModel.doAction(Action.BACKUP_SEED)
                 } else {
 //                    seedDetailsViewModel.pushButton(Action.SHIELD)
                     showShieldAlert(alertState)
@@ -114,7 +114,7 @@ class SeedDetailsFragment : BaseFragment() {
                     showCancel = true,
                     cancelText = "Cancel",
                     cancelClick = {
-                        seedDetailsViewModel.pushButton(Action.GO_BACK)
+                        seedDetailsViewModel.doAction(Action.GO_BACK)
                     },
                     confirmText = "Remove seed",
                     confirmClick = {
@@ -129,7 +129,7 @@ class SeedDetailsFragment : BaseFragment() {
             },
             cancelText = "Cancel",
             cancelClick = {
-                seedDetailsViewModel.pushButton(Action.GO_BACK)
+                seedDetailsViewModel.doAction(Action.GO_BACK)
             }
         )
     }
@@ -184,7 +184,7 @@ class SeedDetailsFragment : BaseFragment() {
                     "onItemStateChanged, selected=$selected, key=$key, path=${mKeysCard?.path}"
                 )
                 mKeysCard?.let {
-                    seedDetailsViewModel.pushButton(Action.LONG_TAP, mKeysCard.addressKey)
+                    seedDetailsViewModel.doAction(Action.LONG_TAP, mKeysCard.addressKey)
                 }
             }
         })
@@ -229,7 +229,7 @@ class SeedDetailsFragment : BaseFragment() {
             }
 
             override fun onDestroyActionMode(mode: ActionMode?) {
-                seedDetailsViewModel.pushButton(Action.GO_BACK)
+                seedDetailsViewModel.doAction(Action.GO_BACK)
                 tracker?.clearSelection()
                 actionMode = null
             }
@@ -251,7 +251,7 @@ class SeedDetailsFragment : BaseFragment() {
             confirmText = "Delete",
             confirmClick = {
                 // delete[Action.REMOVE_KEY] refresh ui
-                seedDetailsViewModel.pushButton(Action.REMOVE_KEY)
+                seedDetailsViewModel.doAction(Action.REMOVE_KEY)
                 actionMode?.finish()
             }
         )
@@ -271,7 +271,7 @@ class SeedDetailsFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        seedDetailsViewModel.pushButton(Action.SELECT_SEED, seedName)
+        seedDetailsViewModel.doAction(Action.SELECT_SEED, seedName)
         seedDetailsViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }
@@ -327,7 +327,7 @@ class SeedDetailsFragment : BaseFragment() {
         binding.tvNetworkTitle.text = mKeys.network.title
         binding.ivNetworkArrowDown.setOnClickListener {
             //change network
-            seedDetailsViewModel.pushButton(Action.NETWORK_SELECTOR)
+            seedDetailsViewModel.doAction(Action.NETWORK_SELECTOR)
         }
 
         //derived keys
@@ -337,7 +337,7 @@ class SeedDetailsFragment : BaseFragment() {
             if (context?.let { AirPlaneUtils.getAlertState(it) } == AlertState.None) {
                 goToNewDeriveKey()
             } else {
-                seedDetailsViewModel.pushButton(Action.SHIELD)
+                seedDetailsViewModel.doAction(Action.SHIELD)
             }
         }
         adapter.submitList(mKeys.set)
@@ -353,13 +353,13 @@ class SeedDetailsFragment : BaseFragment() {
         val rvList = networkSheet.findViewById<RecyclerView>(R.id.rv_list)
         val bottomSheet = context?.showInfoSheet(contentView = networkSheet)
         ivClose.setOnClickListener {
-            seedDetailsViewModel.pushButton(Action.GO_BACK)
+            seedDetailsViewModel.doAction(Action.GO_BACK)
             bottomSheet?.dismiss()
         }
         val adapter = NetworkSelectorAdapter()
         adapter.onItemClick = {
             bottomSheet?.dismiss()
-            seedDetailsViewModel.pushButton(Action.CHANGE_NETWORK, it.key)
+            seedDetailsViewModel.doAction(Action.CHANGE_NETWORK, it.key)
         }
         rvList.adapter = adapter
         adapter.submitList(mNetworkMenu.networks)

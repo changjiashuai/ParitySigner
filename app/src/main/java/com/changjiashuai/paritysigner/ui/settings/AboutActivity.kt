@@ -54,7 +54,7 @@ class AboutActivity : BaseActivity() {
     }
 
     private fun setupViewModel() {
-        absViewModel.pushButton(Action.SHOW_DOCUMENTS)
+        absViewModel.doAction(Action.SHOW_DOCUMENTS)
     }
 
     override fun processScreenData(screenData: ScreenData) {
@@ -93,7 +93,7 @@ class AboutActivity : BaseActivity() {
     }
 
     override fun finish() {
-        absViewModel.pushButton(Action.GO_BACK)
+        absViewModel.doAction(Action.GO_BACK)
         super.finish()
     }
 

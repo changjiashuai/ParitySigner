@@ -1,4 +1,4 @@
-package com.changjiashuai.paritysigner
+package com.changjiashuai.paritysigner.viewmodel
 
 /**
  * Email: changjiashuai@gmail.com

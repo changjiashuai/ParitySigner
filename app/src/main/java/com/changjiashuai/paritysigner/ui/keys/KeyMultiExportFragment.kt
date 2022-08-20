@@ -14,7 +14,6 @@ import com.changjiashuai.paritysigner.viewmodel.AbsViewModel
 import io.parity.signer.uniffi.Action
 import io.parity.signer.uniffi.MKeyDetailsMulti
 import io.parity.signer.uniffi.ScreenData
-import kotlin.math.abs
 
 /**
  * Email: changjiashuai@gmail.com
@@ -51,7 +50,7 @@ class KeyMultiExportFragment : BaseFragment() {
     }
 
     override fun onBackPressed() {
-        viewModel.pushButton(Action.GO_BACK)
+        viewModel.doAction(Action.GO_BACK)
         super.onBackPressed()
     }
 
@@ -60,7 +59,7 @@ class KeyMultiExportFragment : BaseFragment() {
 
     private fun setupViewModel() {
         //export[Action.EXPORT_MULTI_SELECT]: screenData=KeyDetailsMulti
-        viewModel.pushButton(Action.EXPORT_MULTI_SELECT)
+        viewModel.doAction(Action.EXPORT_MULTI_SELECT)
         viewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }
@@ -127,18 +126,18 @@ class KeyMultiExportFragment : BaseFragment() {
             }
         }
 
-        binding.btnPrev.setOnClickListener { viewModel.pushButton(Action.PREVIOUS_UNIT) }
-        binding.btnNext.setOnClickListener { viewModel.pushButton(Action.NEXT_UNIT) }
+        binding.btnPrev.setOnClickListener { viewModel.doAction(Action.PREVIOUS_UNIT) }
+        binding.btnNext.setOnClickListener { viewModel.doAction(Action.NEXT_UNIT) }
     }
 
     private fun swipeLeft() {
         Log.i(TAG, "left")
-        viewModel.pushButton(Action.NEXT_UNIT)
+        viewModel.doAction(Action.NEXT_UNIT)
     }
 
     private fun swipeRight() {
         Log.i(TAG, "right")
-        viewModel.pushButton(Action.PREVIOUS_UNIT)
+        viewModel.doAction(Action.PREVIOUS_UNIT)
     }
 
     private fun swipeUp() {

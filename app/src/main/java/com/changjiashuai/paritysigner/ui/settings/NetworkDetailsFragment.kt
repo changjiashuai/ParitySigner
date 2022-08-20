@@ -14,7 +14,7 @@ import com.changjiashuai.paritysigner.databinding.FragmentNetworkDetailsBinding
 import com.changjiashuai.paritysigner.ext.showAlert
 import com.changjiashuai.paritysigner.ext.showSheetStyle2
 import com.changjiashuai.paritysigner.models.encodeHex
-import com.changjiashuai.paritysigner.viewmodel.NetworkDetailsViewModel
+import com.changjiashuai.paritysigner.viewmodel.AbsViewModel
 import io.parity.signer.uniffi.*
 
 /**
@@ -24,7 +24,7 @@ import io.parity.signer.uniffi.*
  */
 class NetworkDetailsFragment : BaseFragment() {
 
-    private val networkDetailsViewModel by viewModels<NetworkDetailsViewModel>()
+    private val networkDetailsViewModel by viewModels<AbsViewModel>()
     private var _binding: FragmentNetworkDetailsBinding? = null
     private val binding get() = _binding!!
     private var key: String = ""
@@ -61,9 +61,9 @@ class NetworkDetailsFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            networkDetailsViewModel.pushButton(Action.GO_BACK)
+            networkDetailsViewModel.doAction(Action.GO_BACK)
         } else if (item.itemId == R.id.action_network) {
-            networkDetailsViewModel.pushButton(Action.RIGHT_BUTTON_ACTION)
+            networkDetailsViewModel.doAction(Action.RIGHT_BUTTON_ACTION)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -76,7 +76,7 @@ class NetworkDetailsFragment : BaseFragment() {
     }
 
     private fun showMetadataSheet(mMetadataRecord: MMetadataRecord) {
-        networkDetailsViewModel.pushButton(Action.MANAGE_METADATA, mMetadataRecord.specsVersion)
+        networkDetailsViewModel.doAction(Action.MANAGE_METADATA, mMetadataRecord.specsVersion)
         context?.showSheetStyle2(
             title = "Manage Metadata Used for: (${mMetadataRecord.specname})",
             actionText = "Sign this metadata",
@@ -103,21 +103,21 @@ class NetworkDetailsFragment : BaseFragment() {
                     confirmText = "Remove metadata",
                     confirmClick = {
                         //screenData=NNetworkDetails
-                        networkDetailsViewModel.pushButton(Action.REMOVE_METADATA)
+                        networkDetailsViewModel.doAction(Action.REMOVE_METADATA)
                     }
                 )
             },
             cancelText = "Cancel",
             cancelClick = {
-                networkDetailsViewModel.pushButton(Action.GO_BACK)
+                networkDetailsViewModel.doAction(Action.GO_BACK)
             }
         )
     }
 
 
     private fun setupViewModel() {
-        networkDetailsViewModel.pushButton(Action.MANAGE_NETWORKS)
-        networkDetailsViewModel.pushButton(Action.GO_FORWARD, key)
+        networkDetailsViewModel.doAction(Action.MANAGE_NETWORKS)
+        networkDetailsViewModel.doAction(Action.GO_FORWARD, key)
         networkDetailsViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }
@@ -194,18 +194,18 @@ class NetworkDetailsFragment : BaseFragment() {
                             showCancel = true,
                             cancelText = "Cancel",
                             cancelClick = {
-                                networkDetailsViewModel.pushButton(Action.GO_BACK)
+                                networkDetailsViewModel.doAction(Action.GO_BACK)
                             },
                             confirmText = "Remove network",
                             confirmClick = {
                                 // screenData=ManageNetworks
-                                networkDetailsViewModel.pushButton(Action.REMOVE_NETWORK)
+                                networkDetailsViewModel.doAction(Action.REMOVE_NETWORK)
                             }
                         )
                     },
                     cancelText = "Cancel",
                     cancelClick = {
-                        networkDetailsViewModel.pushButton(Action.GO_BACK)
+                        networkDetailsViewModel.doAction(Action.GO_BACK)
                     }
                 )
             }

@@ -16,7 +16,7 @@ import com.changjiashuai.paritysigner.databinding.FragmentLogBinding
 import com.changjiashuai.paritysigner.ext.showAlert
 import com.changjiashuai.paritysigner.ext.showSheetStyle2
 import com.changjiashuai.paritysigner.models.EventModel
-import com.changjiashuai.paritysigner.viewmodel.LogViewModel
+import com.changjiashuai.paritysigner.viewmodel.AbsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.parity.signer.uniffi.*
 
@@ -25,7 +25,7 @@ import io.parity.signer.uniffi.*
  */
 class LogFragment : BaseFragment() {
 
-    private val logViewModel by viewModels<LogViewModel>()
+    private val logViewModel by viewModels<AbsViewModel>()
     private var _binding: FragmentLogBinding? = null
     private val binding get() = _binding!!
     private val adapter = LogEventAdapter()
@@ -56,14 +56,14 @@ class LogFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_more) {
-            logViewModel.pushButton(Action.RIGHT_BUTTON_ACTION)
+            logViewModel.doAction(Action.RIGHT_BUTTON_ACTION)
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
         super.onResume()
-        logViewModel.pushButton(Action.NAVBAR_LOG)
+        logViewModel.doAction(Action.NAVBAR_LOG)
     }
 
     private fun setupView() {
@@ -80,28 +80,28 @@ class LogFragment : BaseFragment() {
                 title = "Log: [checksum: ${mLogRight.checksum}]",
                 actionText = "Add note",
                 actionClick = {
-                    logViewModel.pushButton(Action.CREATE_LOG_COMMENT)
+                    logViewModel.doAction(Action.CREATE_LOG_COMMENT)
                 },
                 action2Text = "Clear log",
                 action2Click = {
-                    logViewModel.pushButton(Action.GO_BACK)
+                    logViewModel.doAction(Action.GO_BACK)
                     context?.showAlert(
                         title = "Clear log?",
                         message = "Do you want this Signer to forget all logged events? This is not reversible.",
                         showCancel = true,
                         cancelText = "Cancel",
                         cancelClick = {
-                            logViewModel.pushButton(Action.GO_BACK)
+                            logViewModel.doAction(Action.GO_BACK)
                         },
                         confirmText = "Confirm",
                         confirmClick = {
-                            logViewModel.pushButton(Action.CLEAR_LOG)
+                            logViewModel.doAction(Action.CLEAR_LOG)
                         }
                     )
                 },
                 cancelText = "Cancel",
                 cancelClick = {
-                    logViewModel.pushButton(Action.GO_BACK)
+                    logViewModel.doAction(Action.GO_BACK)
                 }
             )
         }
@@ -153,11 +153,11 @@ class LogFragment : BaseFragment() {
                 .setPositiveButton("Confirm") { dialog, _ ->
                     val etLog: EditText? = (dialog as AlertDialog).findViewById(R.id.et_log)
                     etLog?.text?.toString()?.let { comment ->
-                        logViewModel.pushButton(Action.GO_FORWARD, comment)
+                        logViewModel.doAction(Action.GO_FORWARD, comment)
                     }
                 }
                 .setNegativeButton("Cancel") { _, _ ->
-                    logViewModel.pushButton(Action.GO_BACK)
+                    logViewModel.doAction(Action.GO_BACK)
                 }
                 .show()
         }

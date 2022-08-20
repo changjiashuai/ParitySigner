@@ -2,7 +2,6 @@ package com.changjiashuai.paritysigner.ui.settings
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -17,12 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.changjiashuai.paritysigner.Authentication
 import com.changjiashuai.paritysigner.BaseFragment
 import com.changjiashuai.paritysigner.R
-import com.changjiashuai.paritysigner.SeedBoxStatus
+import com.changjiashuai.paritysigner.models.SeedBoxStatus
 import com.changjiashuai.paritysigner.adapter.DerivationAdapter
 import com.changjiashuai.paritysigner.adapter.SeedAdapter
 import com.changjiashuai.paritysigner.databinding.FragmentBackupSeedBinding
 import com.changjiashuai.paritysigner.ext.showInfoSheet
-import com.changjiashuai.paritysigner.viewmodel.BackupSeedViewModel
+import com.changjiashuai.paritysigner.viewmodel.SeedViewModel
 import io.parity.signer.uniffi.Action
 import io.parity.signer.uniffi.MBackup
 import io.parity.signer.uniffi.ModalData
@@ -35,7 +34,7 @@ import io.parity.signer.uniffi.ScreenData
  */
 class BackupSeedFragment : BaseFragment() {
 
-    private val backupSeedViewModel by viewModels<BackupSeedViewModel>()
+    private val backupSeedViewModel by viewModels<SeedViewModel>()
     private var _binding: FragmentBackupSeedBinding? = null
     private val binding get() = _binding!!
     private val adapter = SeedAdapter()
@@ -62,20 +61,20 @@ class BackupSeedFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            backupSeedViewModel.pushButton(Action.GO_BACK)
+            backupSeedViewModel.doAction(Action.GO_BACK)
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun setupView() {
         adapter.onItemClick = {
-            backupSeedViewModel.pushButton(Action.BACKUP_SEED, it.seedName)
+            backupSeedViewModel.doAction(Action.BACKUP_SEED, it.seedName)
         }
         binding.rvList.adapter = adapter
     }
 
     private fun setupViewModel() {
-        backupSeedViewModel.pushButton(Action.BACKUP_SEED)
+        backupSeedViewModel.doAction(Action.BACKUP_SEED)
         backupSeedViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }

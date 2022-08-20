@@ -1,4 +1,4 @@
-package com.changjiashuai.paritysigner;
+package com.changjiashuai.paritysigner.models;
 
 enum class SeedBoxStatus {
     Seed,

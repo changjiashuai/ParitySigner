@@ -14,7 +14,7 @@ import com.changjiashuai.paritysigner.Authentication
 import com.changjiashuai.paritysigner.BaseFragment
 import com.changjiashuai.paritysigner.R
 import com.changjiashuai.paritysigner.databinding.FragmentRecoverSeedPhraseBinding
-import com.changjiashuai.paritysigner.viewmodel.RecoverSeedPhraseViewModel
+import com.changjiashuai.paritysigner.viewmodel.SeedViewModel
 import com.google.android.material.chip.Chip
 import io.parity.signer.uniffi.Action
 import io.parity.signer.uniffi.ModalData
@@ -27,7 +27,7 @@ import io.parity.signer.uniffi.ScreenData
  */
 class RecoverSeedPhraseFragment : BaseFragment() {
 
-    private val recoverSeedPhraseViewModel by viewModels<RecoverSeedPhraseViewModel>()
+    private val recoverSeedPhraseViewModel by viewModels<SeedViewModel>()
     private var _binding: FragmentRecoverSeedPhraseBinding? = null
     private val binding get() = _binding!!
     private val authentication = Authentication()
@@ -60,14 +60,14 @@ class RecoverSeedPhraseFragment : BaseFragment() {
         binding.etPhrase.doAfterTextChanged {
             val phrase = it?.toString()
             if (!phrase.isNullOrEmpty()) {
-                recoverSeedPhraseViewModel.pushButton(Action.TEXT_ENTRY, phrase)
+                recoverSeedPhraseViewModel.doAction(Action.TEXT_ENTRY, phrase)
             }
         }
         binding.etPhrase.setOnKeyListener { _, _, keyEvent ->
             if (keyEvent.keyCode == KeyEvent.KEYCODE_DEL && keyEvent.action == KeyEvent.ACTION_DOWN) {
                 val phrase = binding.etPhrase.text
                 if (phrase.isNullOrEmpty()) {
-                    recoverSeedPhraseViewModel.pushButton(Action.TEXT_ENTRY)
+                    recoverSeedPhraseViewModel.doAction(Action.TEXT_ENTRY)
                 }
             }
             return@setOnKeyListener false
@@ -96,7 +96,7 @@ class RecoverSeedPhraseFragment : BaseFragment() {
             chip.text = phrase
             chip.isCloseIconVisible = true
             chip.setOnClickListener {
-                recoverSeedPhraseViewModel.pushButton(Action.PUSH_WORD, phrase)
+                recoverSeedPhraseViewModel.doAction(Action.PUSH_WORD, phrase)
                 binding.etPhrase.setText("")
             }
             binding.cgSeedPhrase.addView(chip)
@@ -104,7 +104,7 @@ class RecoverSeedPhraseFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        recoverSeedPhraseViewModel.pushButton(Action.GO_FORWARD, seedName)
+        recoverSeedPhraseViewModel.doAction(Action.GO_FORWARD, seedName)
         recoverSeedPhraseViewModel.actionResult.observe(viewLifecycleOwner) {
             Log.i(TAG, "actionResult=$it")
             processActionResult(it)

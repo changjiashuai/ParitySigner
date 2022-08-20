@@ -3,11 +3,11 @@ package com.changjiashuai.paritysigner
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.core.view.*
 import com.changjiashuai.paritysigner.databinding.ActivityMainBinding
+import com.changjiashuai.paritysigner.models.OnBoardingState
 import com.changjiashuai.paritysigner.ui.HomeActivity
 import com.changjiashuai.paritysigner.utils.AirPlaneUtils
 import com.changjiashuai.paritysigner.utils.PrefsUtils

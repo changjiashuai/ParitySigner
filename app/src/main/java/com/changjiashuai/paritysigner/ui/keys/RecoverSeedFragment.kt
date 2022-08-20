@@ -9,11 +9,10 @@ import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.changjiashuai.paritysigner.Authentication
 import com.changjiashuai.paritysigner.BaseFragment
 import com.changjiashuai.paritysigner.R
 import com.changjiashuai.paritysigner.databinding.FragmentRecoverSeedBinding
-import com.changjiashuai.paritysigner.viewmodel.RecoverSeedViewModel
+import com.changjiashuai.paritysigner.viewmodel.AbsViewModel
 import io.parity.signer.uniffi.Action
 import io.parity.signer.uniffi.ModalData
 import io.parity.signer.uniffi.ScreenData
@@ -25,7 +24,7 @@ import io.parity.signer.uniffi.ScreenData
  */
 class RecoverSeedFragment : BaseFragment() {
 
-    private val recoverSeedViewModel by viewModels<RecoverSeedViewModel>()
+    private val recoverSeedViewModel by viewModels<AbsViewModel>()
     private var _binding: FragmentRecoverSeedBinding? = null
     private val binding get() = _binding!!
     private var seedName = ""
@@ -72,7 +71,7 @@ class RecoverSeedFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        recoverSeedViewModel.pushButton(Action.RECOVER_SEED)
+        recoverSeedViewModel.doAction(Action.RECOVER_SEED)
         recoverSeedViewModel.actionResult.observe(viewLifecycleOwner) {
             Log.i(TAG, "actionResult=$it")
             processActionResult(it)

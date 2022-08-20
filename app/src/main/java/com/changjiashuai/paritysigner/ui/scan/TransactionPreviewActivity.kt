@@ -3,7 +3,6 @@ package com.changjiashuai.paritysigner.ui.scan
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -13,12 +12,12 @@ import com.changjiashuai.paritysigner.adapter.TransactionCardAdapter
 import com.changjiashuai.paritysigner.databinding.ActivityTransactionPreviewBinding
 import com.changjiashuai.paritysigner.ext.toBitmap
 import com.changjiashuai.paritysigner.models.abbreviateString
-import com.changjiashuai.paritysigner.viewmodel.TransactionPreviewViewModel
+import com.changjiashuai.paritysigner.viewmodel.AbsViewModel
 import io.parity.signer.uniffi.*
 
 class TransactionPreviewActivity : BaseActivity() {
 
-    private val transactionPreviewViewModel by viewModels<TransactionPreviewViewModel>()
+    private val transactionPreviewViewModel by viewModels<AbsViewModel>()
     private lateinit var binding: ActivityTransactionPreviewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -247,7 +246,7 @@ class TransactionPreviewActivity : BaseActivity() {
     }
 
     override fun finish() {
-        transactionPreviewViewModel.pushButton(Action.GO_BACK)
+        transactionPreviewViewModel.doAction(Action.GO_BACK)
         super.finish()
     }
 

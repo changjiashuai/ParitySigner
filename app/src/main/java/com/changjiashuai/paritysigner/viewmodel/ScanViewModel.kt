@@ -20,8 +20,8 @@ import io.parity.signer.uniffi.qrparserTryDecodeQrSequence
 class ScanViewModel : AbsViewModel() {
 
     // Camera stuff
-    internal var bucket = arrayOf<String>()
-    internal var payload: String = ""
+    private var bucket = arrayOf<String>()
+    private var payload: String = ""
 
     private val _total = MutableLiveData<Int?>(null)
     val total: LiveData<Int?> = _total
@@ -63,7 +63,7 @@ class ScanViewModel : AbsViewModel() {
                                             true
                                         )
                                         resetScanValues()
-                                        pushButton(Action.TRANSACTION_FETCHED, payload)
+                                        doAction(Action.TRANSACTION_FETCHED, payload)
                                     } catch (e: Exception) {
                                         Log.e("Single frame decode failed", e.toString())
                                     }
@@ -84,7 +84,7 @@ class ScanViewModel : AbsViewModel() {
                                     )
                                     if (payload.isNotEmpty()) {
                                         resetScanValues()
-                                        pushButton(Action.TRANSACTION_FETCHED, payload)
+                                        doAction(Action.TRANSACTION_FETCHED, payload)
                                     }
                                 } catch (e: Exception) {
                                     Log.e("failed to parse sequence", e.toString())

@@ -3,7 +3,6 @@ package com.changjiashuai.paritysigner.utils
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
-import com.changjiashuai.paritysigner.models.AirPlaneModeState
 import com.changjiashuai.paritysigner.models.AlertState
 import io.parity.signer.uniffi.historyGetWarnings
 

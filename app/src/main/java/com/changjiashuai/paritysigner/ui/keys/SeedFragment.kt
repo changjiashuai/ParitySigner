@@ -1,7 +1,6 @@
 package com.changjiashuai.paritysigner.ui.keys
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -13,14 +12,14 @@ import com.changjiashuai.paritysigner.databinding.FragmentSeedBinding
 import com.changjiashuai.paritysigner.ext.showSheetStyle2
 import com.changjiashuai.paritysigner.models.AlertState
 import com.changjiashuai.paritysigner.utils.AirPlaneUtils
-import com.changjiashuai.paritysigner.viewmodel.SeedViewModel
+import com.changjiashuai.paritysigner.viewmodel.AbsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.parity.signer.uniffi.*
 
 
 class SeedFragment : BaseFragment() {
 
-    private val seedViewModel by viewModels<SeedViewModel>()
+    private val seedViewModel by viewModels<AbsViewModel>()
     private var _binding: FragmentSeedBinding? = null
     private val binding get() = _binding!!
     private val adapter = SeedAdapter()
@@ -42,7 +41,7 @@ class SeedFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
-        seedViewModel.pushButton(Action.NAVBAR_KEYS)
+        seedViewModel.doAction(Action.NAVBAR_KEYS)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -52,7 +51,7 @@ class SeedFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_add) {
-            seedViewModel.pushButton(Action.RIGHT_BUTTON_ACTION)
+            seedViewModel.doAction(Action.RIGHT_BUTTON_ACTION)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -85,7 +84,7 @@ class SeedFragment : BaseFragment() {
                 if (context?.let { AirPlaneUtils.getAlertState(it) } == AlertState.None) {
                     findNavController().navigate(R.id.action_seed_to_new)
                 } else {
-                    seedViewModel.pushButton(Action.SHIELD)
+                    seedViewModel.doAction(Action.SHIELD)
                 }
             },
             action2Text = "Recover seed",
@@ -93,12 +92,12 @@ class SeedFragment : BaseFragment() {
                 if (context?.let { AirPlaneUtils.getAlertState(it) } == AlertState.None) {
                     findNavController().navigate(R.id.action_seed_to_recover)
                 } else {
-                    seedViewModel.pushButton(Action.SHIELD)
+                    seedViewModel.doAction(Action.SHIELD)
                 }
             },
             cancelText = "Cancel",
             cancelClick = {
-                seedViewModel.pushButton(Action.GO_BACK)
+                seedViewModel.doAction(Action.GO_BACK)
             }
         )
     }

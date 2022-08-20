@@ -44,7 +44,7 @@ class SettingsFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        settingsViewModel.pushButton(Action.NAVBAR_SETTINGS)
+        settingsViewModel.doAction(Action.NAVBAR_SETTINGS)
     }
 
     private fun setupView() {
@@ -65,7 +65,7 @@ class SettingsFragment : BaseFragment() {
             if (context?.let { it1 -> AirPlaneUtils.getAlertState(it1) } == AlertState.None) {
                 findNavController().navigate(R.id.action_settings_to_backup_seed)
             } else {
-                settingsViewModel.pushButton(Action.SHIELD)
+                settingsViewModel.doAction(Action.SHIELD)
             }
         }
 

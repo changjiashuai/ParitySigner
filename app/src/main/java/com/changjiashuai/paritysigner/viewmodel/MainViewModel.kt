@@ -1,15 +1,13 @@
 package com.changjiashuai.paritysigner.viewmodel
 
 import android.annotation.SuppressLint
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.changjiashuai.paritysigner.OnBoardingState
+import com.changjiashuai.paritysigner.models.OnBoardingState
 import com.changjiashuai.paritysigner.utils.DbUtils
 import com.changjiashuai.paritysigner.utils.PrefsUtils
 import io.parity.signer.uniffi.*
 import java.io.File
-import java.io.FileOutputStream
 
 /**
  * Email: changjiashuai@gmail.com
@@ -51,7 +49,7 @@ class MainViewModel : AbsViewModel() {
         }
         if (checkRefresh) {
             refreshSeedNames(init = true)
-            pushButton(Action.START)
+            doAction(Action.START)
         }
     }
 

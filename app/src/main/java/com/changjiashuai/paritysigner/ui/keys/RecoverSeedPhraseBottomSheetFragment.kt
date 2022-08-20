@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import com.changjiashuai.paritysigner.R
-import com.changjiashuai.paritysigner.viewmodel.RecoverSeedPhraseViewModel
+import com.changjiashuai.paritysigner.viewmodel.SeedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
@@ -29,9 +29,7 @@ class RecoverSeedPhraseBottomSheetFragment : BottomSheetDialogFragment() {
 
     private var etPhrase: EditText? = null
     private var cgSeedPhrase: ChipGroup? = null
-
-    //    private val signerDataModel by shareViewModels<SignerDataModel>("global")
-    private val recoverSeedPhraseViewModel by viewModels<RecoverSeedPhraseViewModel>()
+    private val recoverSeedPhraseViewModel by viewModels<SeedViewModel>()
     var mRecoverSeedPhrase: MRecoverSeedPhrase? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,7 +52,7 @@ class RecoverSeedPhraseBottomSheetFragment : BottomSheetDialogFragment() {
         etPhrase?.doAfterTextChanged {
             val phrase = it?.toString()
             if (!phrase.isNullOrEmpty()) {
-                recoverSeedPhraseViewModel.pushButton(Action.TEXT_ENTRY, phrase)
+                recoverSeedPhraseViewModel.doAction(Action.TEXT_ENTRY, phrase)
             }
         }
         if (mRecoverSeedPhrase?.guessSet != null) {
@@ -93,7 +91,7 @@ class RecoverSeedPhraseBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        recoverSeedPhraseViewModel.pushButton(Action.GO_BACK)
+        recoverSeedPhraseViewModel.doAction(Action.GO_BACK)
     }
 
     companion object {

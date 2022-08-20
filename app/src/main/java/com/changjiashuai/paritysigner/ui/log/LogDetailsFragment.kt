@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.changjiashuai.paritysigner.BaseFragment
-import com.changjiashuai.paritysigner.adapter.LogDetailsAdapter
 import com.changjiashuai.paritysigner.adapter.LogEventAdapter
 import com.changjiashuai.paritysigner.databinding.FragmentLogDetailsBinding
 import com.changjiashuai.paritysigner.models.EventModel
-import com.changjiashuai.paritysigner.viewmodel.LogDetailsViewModel
+import com.changjiashuai.paritysigner.viewmodel.AbsViewModel
 import io.parity.signer.uniffi.Action
 import io.parity.signer.uniffi.ScreenData
 
@@ -22,11 +21,10 @@ import io.parity.signer.uniffi.ScreenData
  */
 class LogDetailsFragment : BaseFragment() {
 
-    private val logDetailsViewModel by viewModels<LogDetailsViewModel>()
+    private val logDetailsViewModel by viewModels<AbsViewModel>()
     private var _binding: FragmentLogDetailsBinding? = null
     private val binding get() = _binding!!
 
-    //    private val adapter = LogDetailsAdapter()
     private val adapter = LogEventAdapter()
     private var order: String = ""
 
@@ -50,7 +48,7 @@ class LogDetailsFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        logDetailsViewModel.pushButton(Action.SHOW_LOG_DETAILS, order)
+        logDetailsViewModel.doAction(Action.SHOW_LOG_DETAILS, order)
         logDetailsViewModel.actionResult.observe(viewLifecycleOwner) {
             processActionResult(it)
         }
@@ -74,7 +72,6 @@ class LogDetailsFragment : BaseFragment() {
                     )
                 }
                 adapter.submitList(events)
-//                adapter.submitList(logDetails.events)
             }
             else -> {
 

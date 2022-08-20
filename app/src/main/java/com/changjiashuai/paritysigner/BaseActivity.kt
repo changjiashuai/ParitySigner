@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.changjiashuai.paritysigner.ext.showAlert
-import com.changjiashuai.paritysigner.models.AirPlaneModeState
 import com.changjiashuai.paritysigner.models.AlertState
 import com.changjiashuai.paritysigner.utils.AirPlaneUtils
 import com.changjiashuai.paritysigner.utils.DbUtils
